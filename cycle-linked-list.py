@@ -16,7 +16,23 @@ def contains_cycle(head_node):
 
        Returns:  Boolean - True if linked list contains a cycle.  Cycle
        occurs when a node's 'next' attribute points back to a previous node
-       in the list."""
+       in the list.
+
+       >>> beer = LinkedListNode("beer")
+       >>> fries = LinkedListNode("fries")
+       >>> burger = LinkedListNode("burger")
+       >>> beer.next = fries
+       >>> fries.next = burger
+       >>> contains_cycle(beer)
+       False
+
+       >>> beer = LinkedListNode("beer")
+       >>> fries = LinkedListNode("fries")
+       >>> burger = LinkedListNode("burger")
+       >>> beer.next = fries
+       >>> fries.next = beer
+       >>> contains_cycle(beer)
+       True"""
 
     current = head_node
     seen = set()
@@ -55,16 +71,6 @@ def contains_cycle_constant_space(head_node):
     return False
 
 
-beer = LinkedListNode("beer")
-fries = LinkedListNode("fries")
-burger = LinkedListNode("burger")
-shake = LinkedListNode("shake")
-cake = LinkedListNode("cake")
-
-beer.next = fries
-fries.next = burger
-burger.next = shake
-shake.next = cake
-
-print contains_cycle(beer)
-print contains_cycle_constant_space(beer)
+if __name__ == "__main__":
+    import doctest
+    doctest.testmod()
