@@ -17,29 +17,49 @@ class B_Tree_Node:
         return self.right
 
 
+def find_largest_element(root_node):
+    """Function to find largest element in BST given root node.
+
+    Input: root_node should be from B_Tree_Node class.
+    Function assumes BST is valid and properly ordered.
+
+    Returns: Node with largest value in BST."""
+
+    current = root_node
+
+    while current.right:
+        current = current.right
+
+    return current
+
+
 def find_2nd_largest_element(b_tree_node):
     """Function to find 2nd largest element in a BST.
 
     Input: b_tree_node should be root node of BST from B_Tree_Node class.
     Function assumes binary tree is valid and in correct order.
 
-    Returns: value of node with 2nd largest value in tree."""
-
-    # assume root is largest value until larger value encountered
-    largest = b_tree_node
-    # assume value to the left of root is 2nd largest until larger val found
-    second_largest = b_tree_node.left
+    Returns: Node with 2nd largest value in tree."""
 
     current = b_tree_node
 
-    # loop as long as there is a node larger than current largest
-    while current.right:
+    # loop unless current node is None
+    while current:
 
-        second_largest = largest
-        largest = current.right
+        # if there is no right node but there is a left node in the tree
+        # 2nd largest element will be the largest element of the left tree
+        if current.left and not current.right:
+
+            return find_largest_element(current.left)
+
+        # if current has a right node that is a leaf
+        # then current is the second largest element of tree
+        if current.right and not current.right.left and not current.right.right:
+            return current
+
+        # keep going right until 2nd largest element found
+        # no need to traverse entire tree if BST structured properly
         current = current.right
-
-    return second_largest.value
 
 root_node = B_Tree_Node(8)
 six = B_Tree_Node(6)
@@ -56,15 +76,17 @@ six.right = seven
 ten.left = nine
 ten.right = eleven
 
-print find_2nd_largest_element(root_node)
+print find_largest_element(root_node).value
+print find_2nd_largest_element(root_node).value
 
 unbalanced = B_Tree_Node(10)
 five = B_Tree_Node(5)
-three = B_Tree_Node(3)
+six = B_Tree_Node(6)
 two = B_Tree_Node(2)
 
 unbalanced.left = five
-five.left = three
-three.left = two
+five.right = six
+five.left = two
 
-print find_2nd_largest_element(unbalanced)
+print find_largest_element(unbalanced).value
+print find_2nd_largest_element(unbalanced).value
