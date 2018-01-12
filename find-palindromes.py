@@ -24,10 +24,11 @@ def is_palindrome(num):
     False
 
     >>> is_palindrome("tacocat")
-    False"""
+    'Input must be positive int'
+    """
 
     if type(num) != int or num < 0:
-        raise TypeError("is_palindrome accepts one positive int as input.")
+        return "Input must be positive int"
 
     str_num = str(num)
     reverse_num = str_num[::-1]
@@ -69,4 +70,7 @@ def find_palindromes():
     return palindromes
 
 
-print find_palindromes()
+if __name__ == "__main__":
+
+    import doctest
+    doctest.testmod()
