@@ -31,7 +31,6 @@ base case one: nothing in list return None
 
 base case two: found needle in haystack, return index
 
-
 '''
 
 
